@@ -16,7 +16,7 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login docker.pkg.github.com -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
       - name: Build and push
-        run: docker buildx build --tag "${{ secrets.DOCKER_USER }}"/webserver:latest --file ./Dockerfile --push .
+        run: docker buildx build --tag "${{ secrets.DOCKER_USER }}"/webserver --file ./Dockerfile --push .
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
