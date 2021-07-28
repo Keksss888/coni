@@ -15,10 +15,9 @@ jobs:
       - name: Login to GitHub Package Registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login docker.pkg.github.com -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
-      - name: Build and push
-        id: docker_build
       - uses: docker/build-push-action@v2
-      - run: buildx build --tag "${{ secrets.DOCKER_USER }}"/webserver:latest --iidfile /tmp/docker-build-push-xmfueb/iidfile --file ./Dockerfile --push .
+      - name: Build and push
+        run: buildx build --tag "${{ secrets.DOCKER_USER }}"/webserver:latest --iidfile /tmp/docker-build-push-xmfueb/iidfile --file ./Dockerfile --push .
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
